@@ -38,9 +38,9 @@ class LayerDense(Layer):
         return input_error
 
 class ActivationLayer(Layer):
-    def __init__(self, activation, activation_prime):
+    def __init__(self, activation):
         self.activation = activation
-        self.activation_prime = activation_prime
+        #self.activation_prime = activation_prime
 
     # returns the activated input
     def forward_propagation(self, input_data):
@@ -51,7 +51,7 @@ class ActivationLayer(Layer):
     # Returns input_error=dE/dX for a given output_error=dE/dY.
     # learning_rate is not used because there is no "learnable" parameters.
     def backward_propagation(self, output_error, learning_rate):
-        return self.activation_prime(self.input) * output_error 
+        return self.activation(self.input, derivative=True) * output_error 
 
 
     #def __init__(self, n_inputs, n_neurons, activation=sigmoid):
