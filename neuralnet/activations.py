@@ -1,7 +1,11 @@
 import numpy as np
 
+
 def sign(x, derivative=False):
-    return (x >= 0.5).astype(int)
+    if derivative == False:
+        return (x >= 0.5).astype(int)
+    else:
+        return (1)
 
 
 def relu(x, derivative=False):
@@ -11,17 +15,17 @@ def relu(x, derivative=False):
     than zero are set to zero.
     '''
     if derivative == False:
-        return np.maximum(0,x)
+        return np.maximum(0, x)
     else:
-        x[x<=0] = 0
-        x[x>0] = 1
+        x[x <= 0] = 0
+        x[x > 0] = 1
         return x
-        
 
-#def relu_prime(x):
+
+# def relu_prime(x):
     #x[x<=0] = 0
     #x[x>0] = 1
-    #return x
+    # return x
 
 
 def tanh(x, derivative=False):
@@ -31,8 +35,8 @@ def tanh(x, derivative=False):
         return 1-np.tanh(x)**2
 
 
-#def tanh_prime(x):
-    #return 1-np.tanh(x)**2
+# def tanh_prime(x):
+    # return 1-np.tanh(x)**2
 
 
 def sigmoid(x, derivative=False):
@@ -45,7 +49,6 @@ def sigmoid(x, derivative=False):
     else:
         return sigmoid(x) * (1 - sigmoid(x))
 
-#def sigmoid_prime(x):
-    #x = sigmoid(x) 
-    #return x * (1 - x)
-
+# def sigmoid_prime(x):
+    #x = sigmoid(x)
+    # return x * (1 - x)

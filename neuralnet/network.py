@@ -1,8 +1,9 @@
 import numpy as np
-from sklearn.metrics import accuracy_score
+from tqdm import trange
+# from sklearn.metrics import accuracy_score
 
 
-class Network:
+class Sequential:
     def __init__(self):
         self.layers = []
         self.loss = None
@@ -33,7 +34,7 @@ class Network:
                 output = layer.forward_propagation(output)
 
             if (output.shape == (1, 1)):
-                output = output[0]
+                output = output[0][0]
 
             result.append(output)
 
@@ -46,7 +47,7 @@ class Network:
         acc = 0
 
         # training loop
-        for i in range(epochs):
+        for i in (t := trange(epochs)):
             err = 0
             for j in range(samples):
                 # forward propagation
@@ -71,9 +72,10 @@ class Network:
             pred = self.predict(x_train)
             acc = self.accuracy(y_train, pred)
             self.val_accuracy_history.append(acc)
-            print('epoch %d/%d   error=%f    accuracy=%f' %
-                  (i+1, epochs, err, acc))
+            t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f' %
+                              (i+1, epochs, err, acc))
 
-    def accuracy(self, ytrain, pred):
-        acc = accuracy_score(ytrain, np.round(pred))
+    def accuracy(self, y_train, pred):
+        acc = np.sum((np.round(pred) == y_train)) / len(y_train)
+        # acc = accuracy_score(y_train, np.round(pred))
         return acc

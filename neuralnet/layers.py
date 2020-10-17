@@ -1,10 +1,11 @@
 import numpy as np
 
+
 class Layer():
 
     def __init__(self):
-        self.input = none
-        self.output = none
+        self.input = None
+        self.output = None
 
     def forward_propagation(self, input):
         raise NotImplementedError
@@ -22,12 +23,19 @@ class LayerDense(Layer):
 
     # returns output for a given input
     def forward_propagation(self, input_data):
+        '''
+        function to calculate the forward propagation
+        '''
+
         self.input = input_data
         self.output = np.dot(self.input, self.weights) + self.bias
         return self.output
 
     # computes dE/dW, dE/dB for a given output_error=dE/dY. Returns input_error=dE/dX.
     def backward_propagation(self, output_error, learning_rate):
+        '''
+        function to calculate the backward propagation
+        '''
         input_error = np.dot(output_error, self.weights.T)
         weights_error = np.dot(self.input.T, output_error)
         # dBias = output_error
@@ -36,6 +44,7 @@ class LayerDense(Layer):
         self.weights -= learning_rate * weights_error
         self.bias -= learning_rate * output_error
         return input_error
+
 
 class ActivationLayer(Layer):
     def __init__(self, activation):
@@ -51,20 +60,18 @@ class ActivationLayer(Layer):
     # Returns input_error=dE/dX for a given output_error=dE/dY.
     # learning_rate is not used because there is no "learnable" parameters.
     def backward_propagation(self, output_error, learning_rate):
-        return self.activation(self.input, derivative=True) * output_error 
+        return self.activation(self.input, derivative=True) * output_error
 
-
-    #def __init__(self, n_inputs, n_neurons, activation=sigmoid):
+    # def __init__(self, n_inputs, n_neurons, activation=sigmoid):
         #self.weights = 0.10 * np.random.randn(n_inputs, n_neurons)
         #self.biases = np.zeros((1, n_neurons))
         #self.activation = activation
-        
-    #def forward(self, inputs):
-        #net = np.dot(inputs, self.weights) + self.biases
-        #return self.activation.function(net)    
 
-    #def backward(self, X, y, yhat):
+    # def forward(self, inputs):
+        #net = np.dot(inputs, self.weights) + self.biases
+        # return self.activation.function(net)
+
+    # def backward(self, X, y, yhat):
         #error = y - yhat
         #adjustment = error * self.activation.jacobian(yhat)
         #self.weights += np.dot(X.T, adjustment)
-
