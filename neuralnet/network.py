@@ -34,7 +34,8 @@ class Sequential:
                 output = layer.forward_propagation(output)
 
             if (output.shape == (1, 1)):
-                output = output[0][0]
+                # output = output[0][0]
+                output = np.max(output)
 
             result.append(output)
 
@@ -76,6 +77,7 @@ class Sequential:
                               (i+1, epochs, err, acc))
 
     def accuracy(self, y_train, pred):
+        # acc = np.sum(y_pred == y_train) / len(y_train)
         acc = np.sum((np.round(pred) == y_train)) / len(y_train)
         # acc = accuracy_score(y_train, np.round(pred))
         return acc
