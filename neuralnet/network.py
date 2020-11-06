@@ -1,6 +1,5 @@
 import numpy as np
 from tqdm import trange
-from .optimizers import GD
 # from sklearn.metrics import accuracy_score
 
 
@@ -17,9 +16,8 @@ class Sequential:
         self.layers.append(layer)
 
     # set loss to use
-    def use(self, loss, loss_prime):
+    def use(self, loss):
         self.loss = loss
-        self.loss_prime = loss_prime
 
     # predict output for given input
     def predict(self, input_data):
@@ -43,7 +41,7 @@ class Sequential:
         return result
 
     # train the network
-    def fit(self, x_train, y_train, epochs, learning_rate, optimizer=GD):
+    def fit(self, x_train, y_train, epochs, optimizer):
         # sample dimension first
         samples = len(x_train)
         acc = 0
@@ -53,6 +51,7 @@ class Sequential:
             err = 0
             for j in range(samples):
                 # forward propagation
+                optimizer.zeroGrad()
                 output = x_train[j]
                 output = output.reshape(1, output.shape[0])
                 for layer in self.layers:
@@ -62,9 +61,9 @@ class Sequential:
                 err += self.loss(y_train[j], output)
 
                 # backward propagation
-                error = self.loss_prime(y_train[j], output)
+                error = self.loss(y_train[j], output, derivative=True)
                 for layer in reversed(self.layers):
-                    error = layer.backward_propagation(error, learning_rate)
+                    error = layer.backward_propagation(error)
 
                 optimizer.step()
 
