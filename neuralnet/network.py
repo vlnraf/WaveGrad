@@ -1,5 +1,6 @@
 import numpy as np
 from tqdm import trange
+from .optimizers import GD
 # from sklearn.metrics import accuracy_score
 
 
@@ -42,7 +43,7 @@ class Sequential:
         return result
 
     # train the network
-    def fit(self, x_train, y_train, epochs, learning_rate):
+    def fit(self, x_train, y_train, epochs, learning_rate, optimizer=GD):
         # sample dimension first
         samples = len(x_train)
         acc = 0
@@ -64,6 +65,8 @@ class Sequential:
                 error = self.loss_prime(y_train[j], output)
                 for layer in reversed(self.layers):
                     error = layer.backward_propagation(error, learning_rate)
+
+                optimizer.step()
 
             # calculate average error on all samples
             err /= samples
