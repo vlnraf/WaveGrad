@@ -4,7 +4,7 @@ WaveGrad is a tiny Python library to create and train deep feedforward neural ne
 
 ## Getting Start
 
-It's possible to create different networks with different topology. You just need to import the [`Sequential`](https://github.com/vlnraf/WaveGrad/blob/master/neuralnet/network.py) module and add [`Layers`](https://github.com/vlnraf/WaveGrad/blob/master/neuralnet/layers.py) into it:
+It's possible to create different networks with different topology. You just need to import the [`Sequential`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.network) module and add [`Layers`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.layers) into it:
 
 ```python
 from neuralnet.network import Sequential
@@ -26,6 +26,6 @@ net.fit(Xtrain, ytrain, epochs=500, optimizer=optim)
 
 ```
 
-See [`activations`](https://github.com/vlnraf/WaveGrad/blob/master/neuralnet/activations.py) for the list of activation functions.
-See [`optimizers`](https://github.com/vlnraf/WaveGrad/blob/master/neuralnet/activations.py) for the list of optimizers.
-See [`losses`](https://github.com/vlnraf/WaveGrad/blob/master/neuralnet/activations.py) for the list of losees functions.
+See [`activations`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.activations) for the list of activation functions.
+See [`optimizers`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.optimizers) for the list of optimizers.
+See [`losses`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.losses) for the list of losees functions.
