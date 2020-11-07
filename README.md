@@ -7,11 +7,11 @@ WaveGrad is a tiny Python library to create and train deep feedforward neural ne
 It's possible to create different networks with different topology. You just need to import the [`Sequential`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.network) module and add [`Layers`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.layers) into it:
 
 ```python
-from neuralnet.network import Sequential
-from neuralnet.layers import LayerDense
-from neuralnet.activations import *
-from neuralnet.losses import *
-from neuralnet.optimizers import *
+from wavegrad.network import Sequential
+from wavegrad.layers import LayerDense
+from wavegrad.activations import *
+from wavegrad.losses import MSE
+from wavegrad.optimizers import *
 
 # network
 net = Sequential()
