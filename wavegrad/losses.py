@@ -4,7 +4,7 @@ Losses Module
 import numpy as np
 
 
-def MSE(y, target, derivative=False):
+def MSE(target, y, derivative=False):
     """
     Compute the Mean Squared Error (MSE) of the predicted example.
 
@@ -16,19 +16,19 @@ def MSE(y, target, derivative=False):
     if derivative == False:
         return np.mean(np.power(y - target, 2))
     else:
-        return 2*(target-y)/y.size
+        return 2*(y - target)/y.size
 
 
-def MEE(y, target, derivative=False):
+def MAE(target, y, derivative=False):
     """
-    Compute the Mean Euclidean Error (MSE) of the predicted example.
+    Compute the Mean Absolute Error (MAE) of the predicted example.
 
     :param y: the predicted outuput
     :param target: the target output
-    :param derivative: True for compute derivative, False for compute MSE
-    :return: the MEE or it's derivative.
+    :param derivative: True for compute derivative, False for compute MAE
+    :return: the MAE or it's derivative.
     """
     if derivative == False:
-        return np.linalg.norm(y - target)
+        return np.mean(np.abs(y - target))
     else:
-        return (y - target) / np.linalg.norm(y - target)
+        return np.sign(y - target)
