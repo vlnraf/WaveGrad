@@ -1,5 +1,10 @@
 # WaveGrad 
 
+<p align="center">
+    <img width="300" src = "/home/raffaele/Pictures/neural-network.webp">
+</p>
+
+---
 WaveGrad is a tiny Python library to create and train deep feedforward neural netwroks.
 
 ## Getting Start
