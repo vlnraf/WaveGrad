@@ -20,7 +20,7 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 
-GH_PAGES_SOURCES = ./Makefile ./ 
+GH_PAGES_SOURCES = $(SOURCEDIR)
 
 
 gh-pages:
