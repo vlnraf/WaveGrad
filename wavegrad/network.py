@@ -1,11 +1,20 @@
+"""
+Network Module
+"""
 import numpy as np
 from tqdm import trange
 from .optimizers import DiscreteOptimizer, StochasticOptimizer
-# from sklearn.metrics import accuracy_score
 
 
 class Sequential:
+    """
+    Sequential Object
+    """
+
     def __init__(self):
+        """
+        Create a Sequential Object that contain the :py:class:`.Layer`
+        """
         self.layers = []
         self.loss = None
         self.loss_prime = None
@@ -14,14 +23,30 @@ class Sequential:
 
     # add layer to network
     def add(self, layer):
+        """
+        Add a layer to the neural network.
+
+        :param layer: the :py:class:`.Layer` to add.
+        """
         self.layers.append(layer)
 
     # set loss to use
     def use(self, loss):
+        """
+        Add the loss function to the neural netwok.
+
+        :param loss: the :py:func:`.MSE` to add.
+        """
         self.loss = loss
 
     # predict output for given input
     def predict(self, input_data):
+        """
+        Insert the input data to the neural network to make a prediction
+
+        :param input_data: the input. Its size must match the ``input_size`` of the neural network.
+        :return: the output of the neural network.
+        """
         # sample dimension first
         samples = len(input_data)
         result = []
@@ -43,6 +68,14 @@ class Sequential:
 
     # train the network
     def fit(self, x_train, y_train, epochs, optimizer, batch_size=None):
+        """
+        Insert the X_train y_train the optimizer to use and the epochs to fit the neural network with your datas, you can add the batch size if you need it.
+
+        :param x_train: the input data
+        :param y_train: the target data
+        :param epoch: the number of epochs to permorm the train
+        :param optimizer: the tipe of :py:class:`.Optimizer` to use.
+        """
         if issubclass(type(optimizer), DiscreteOptimizer):
             # sample dimension first
             samples = len(x_train)
@@ -112,8 +145,15 @@ class Sequential:
                 t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f' %
                                   (i+1, epochs, err, acc))
 
-    def accuracy(self, y_train, pred):
-        # acc = np.sum(y_pred == y_train) / len(y_train)
-        acc = np.sum((np.round(pred) == y_train)) / len(y_train)
-        # acc = accuracy_score(y_train, np.round(pred))
+    def accuracy(self, y, pred):
+        """
+        Compute the accuracy of a given prediction
+
+        :param y: the predicted output.
+        :param pred: the target (binary) output.
+        :return: the accuracy of the predicted output.
+        """
+        # acc = np.sum(y_pred == y) / len(y)
+        acc = np.sum((np.round(pred) == y)) / len(y)
+        # acc = accuracy_score(y, np.round(pred))
         return acc
