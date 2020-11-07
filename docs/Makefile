@@ -19,7 +19,7 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-	GH_PAGES_SOURCES = ./
+	GH_PAGES_SOURCES = /home/raffaele/Documents/ml-project/docs/
 
 
 gh-pages:
