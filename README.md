@@ -1,7 +1,7 @@
 # WaveGrad 
 
 <p align="center">
-    <img width="300" src = "https://user-images.githubusercontent.com/vlnraf/wavegrad/master/docs/static/netlogo2.png">
+    <img width="300" src = "https://github.com/vlnraf/WaveGrad/blob/master/docs/static/netlogo2.png">
 </p>
 
 ---
