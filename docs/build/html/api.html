@@ -354,26 +354,26 @@ squashes it to a real-valued output between 0 and 1.</p>
 <span id="wavegrad-losses-module"></span><h2>wavegrad.losses module<a class="headerlink" href="#module-wavegrad.losses" title="Permalink to this headline">¶</a></h2>
 <p>Losses Module</p>
 <dl class="py function">
-<dt id="wavegrad.losses.MEE">
-<code class="sig-prename descclassname">wavegrad.losses.</code><code class="sig-name descname">MEE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">derivative</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.losses.MEE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the Mean Euclidean Error (MSE) of the predicted example.</p>
+<dt id="wavegrad.losses.MAE">
+<code class="sig-prename descclassname">wavegrad.losses.</code><code class="sig-name descname">MAE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">derivative</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.losses.MAE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the Mean Absolute Error (MAE) of the predicted example.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>y</strong> – the predicted outuput</p></li>
 <li><p><strong>target</strong> – the target output</p></li>
-<li><p><strong>derivative</strong> – True for compute derivative, False for compute MSE</p></li>
+<li><p><strong>derivative</strong> – True for compute derivative, False for compute MAE</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the MEE or it’s derivative.</p>
+<dd class="field-even"><p>the MAE or it’s derivative.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="wavegrad.losses.MSE">
-<code class="sig-prename descclassname">wavegrad.losses.</code><code class="sig-name descname">MSE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">derivative</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.losses.MSE" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">wavegrad.losses.</code><code class="sig-name descname">MSE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">derivative</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.losses.MSE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the Mean Squared Error (MSE) of the predicted example.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
