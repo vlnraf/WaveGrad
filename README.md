@@ -5,7 +5,7 @@
 </p>
 
 ---
-WaveGrad is a tiny Python library to create and train deep feedforward neural netwroks.
+WaveGrad is a tiny Python library to create and train deep feedforward neural netwroks. [Documentation](https://vlnraf.github.io/WaveGrad/build/html/index.html)
 
 ## Getting Start
 
