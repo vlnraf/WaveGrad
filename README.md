@@ -25,7 +25,7 @@ net.add(LayerDense(17, 5, sigmoid))
 net.add(LayerDense(5, 1, tanh))
 # You can alway add optimizer and loss function
 optim = GD(net.layers, lr=0.01, momentum=0.9)
-net.use(mse)
+net.use(MSE)
 # train
 net.fit(Xtrain, ytrain, epochs=500, optimizer=optim)
 
