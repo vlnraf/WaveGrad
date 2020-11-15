@@ -1,11 +1,41 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
+def plot_loss(net):
+    fig, loss = plt.subplots()
+    plt.style.use('ggplot')
+    loss.plot(net.train_loss_history, color='navy', lw=2)
+    loss.plot(net.val_loss_history, color='orange', lw=2)
+    loss.set_title('model loss')
+    loss.set_xlabel('epoch')
+    loss.set_ylabel('loss')
+    loss.legend(['training', 'validation']).get_frame().set_facecolor('white')
+    plt.show()
 
-def train_test_split(X_train, y_train, validation_split):
-    size = int(len(X_train) * (validation_split * 100) / 100)
-    X = X_train[size:]
-    y = y_train[size:]
-    X_val = X_train[:size]
-    y_val = y_train[:size]
+def plot_accuracy(net):
+    fig, loss = plt.subplots()
+    plt.style.use('ggplot')
+    loss.plot(net.accuracy_history, color='navy', lw=2)
+    loss.plot(net.val_accuracy_history, color='orange', lw=2)
+    loss.set_title('model accuracy')
+    loss.set_xlabel('epoch')
+    loss.set_ylabel('accuracy')
+    loss.legend(['training', 'validation']).get_frame().set_facecolor('white')
+    plt.show()
 
-    return X, y, X_val, y_val
+def accuracy(y, pred):
+    """
+    Compute the accuracy of a given prediction
+
+    :param y: the predicted output.
+    :param pred: the target (binary) output.
+    :return: the accuracy of the predicted output.
+    """
+    # acc = np.sum(y_pred == y) / len(y)
+    #print(np.round(pred))
+    acc = 0
+    for x in range(len(pred)):
+        acc += np.sum(np.array_equal(np.round(pred[x]), y[x])) / len(y)
+    # acc = np.sum(np.round(pred) == y) / len(y)
+    # acc = accuracy_score(y, np.round(pred))
+    return acc

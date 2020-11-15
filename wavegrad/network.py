@@ -1,3 +1,5 @@
+from .utility import accuracy
+
 """
 Network Module
 """
@@ -119,11 +121,11 @@ class Sequential:
                 self.train_loss_history.append(err)
                 # do prediction, cal
                 pred = self.predict(x_train)
-                acc = self.accuracy(y_train, pred)
+                acc = accuracy(y_train, pred)
                 self.accuracy_history.append(acc)
                 if (validation_split > 0):
                     val_pred = self.predict(x_val)
-                    val_acc = self.accuracy(y_val, val_pred)
+                    val_acc = accuracy(y_val, val_pred)
                     self.val_accuracy_history.append(val_acc)
                     val_out = self.predict(x_val)
                     val_err = self.loss(y_val, val_out)
@@ -162,11 +164,11 @@ class Sequential:
                 err /= samples
                 self.train_loss_history.append(err)
                 pred = self.predict(x_train)
-                acc = self.accuracy(y_train, pred)
+                acc = accuracy(y_train, pred)
                 self.accuracy_history.append(acc)
                 if (validation_split > 0):
                     val_pred = self.predict(x_val)
-                    val_acc = self.accuracy(y_val, val_pred)
+                    val_acc = accuracy(y_val, val_pred)
                     self.val_accuracy_history.append(val_acc)
                     val_out = self.predict(x_val)
                     val_err = self.loss(y_val, val_out)
@@ -175,19 +177,3 @@ class Sequential:
                 else:
                     t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f' % (i+1, epochs, err, acc))
 
-    def accuracy(self, y, pred):
-        """
-        Compute the accuracy of a given prediction
-
-        :param y: the predicted output.
-        :param pred: the target (binary) output.
-        :return: the accuracy of the predicted output.
-        """
-        # acc = np.sum(y_pred == y) / len(y)
-        #print(np.round(pred))
-        acc = 0
-        for x in range(len(pred)):
-            acc += np.sum(np.array_equal(np.round(pred[x]), y[x])) / len(y)
-        # acc = np.sum(np.round(pred) == y) / len(y)
-        # acc = accuracy_score(y, np.round(pred))
-        return acc
