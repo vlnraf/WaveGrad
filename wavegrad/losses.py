@@ -14,7 +14,7 @@ def MSE(target, y, derivative=False):
     :return: the MSE or it's derivative.
     """
     if derivative == False:
-        return np.mean(np.power(y - target, 2))
+        return np.mean(np.square(target - y))
     else:
         return 2*(y - target)/y.size
 
@@ -29,6 +29,6 @@ def MAE(target, y, derivative=False):
     :return: the MAE or it's derivative.
     """
     if derivative == False:
-        return np.mean(np.abs(y - target))
+        return np.mean(np.abs(target - y))
     else:
         return np.sign(y - target)

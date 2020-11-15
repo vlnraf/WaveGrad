@@ -36,6 +36,8 @@ class LayerDense(Layer):
         self.data = input_size
         self.weights = np.random.rand(input_size, output_size) - 0.5
         self.bias = np.random.rand(1, output_size) - 0.5
+#         self.weights = np.random.uniform(-0.05, 0.05, size=(input_size, output_size))
+#         self.bias = np.random.uniform(-0.05, 0.05, size = (1, output_size))
         self.weights_grad = np.zeros((input_size, output_size))
         self.bias_grad = np.zeros((1, output_size))
         self.activation = activation
@@ -61,8 +63,7 @@ class LayerDense(Layer):
 
         :param output_error: the output_error of the next layer.
         """
-        self.bias_grad = self.activation(
-            self.net, derivative=True) * output_error
+        self.bias_grad = self.activation(self.net, derivative=True) * output_error
         input_error = np.dot(self.bias_grad, self.weights.T)
         self.weights_grad = np.dot(self.input.T, self.bias_grad)
         # dBias = output_error

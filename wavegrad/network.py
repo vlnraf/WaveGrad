@@ -4,7 +4,7 @@ Network Module
 import numpy as np
 from tqdm import trange
 from .optimizers import DiscreteOptimizer, StochasticOptimizer
-
+from sklearn.model_selection import train_test_split
 
 class Sequential:
     """
@@ -19,7 +19,9 @@ class Sequential:
         self.loss = None
         self.loss_prime = None
         self.train_loss_history = []
+        self.accuracy_history = []
         self.val_accuracy_history = []
+        self.val_loss_history = []
 
     # add layer to network
     def add(self, layer):
@@ -58,16 +60,19 @@ class Sequential:
             for layer in self.layers:
                 output = layer.forward_propagation(output)
 
-            if (output.shape == (1, 1)):
+            # if (output.shape == (1, 1)):
                 # output = output[0][0]
-                output = np.max(output)
+                # output = np.max(output)
 
+
+            output = output.flatten()
             result.append(output)
 
+        result = np.array(result)
         return result
 
     # train the network
-    def fit(self, x_train, y_train, epochs, optimizer, batch_size=None):
+    def fit(self, x_train, y_train, epochs, optimizer, validation_split=0., batch_size=None):
         """
         Insert the X_train y_train the optimizer to use and the epochs to fit the neural network with your datas, you can add the batch size if you need it.
 
@@ -78,6 +83,12 @@ class Sequential:
         """
         if issubclass(type(optimizer), DiscreteOptimizer):
             # sample dimension first
+            if (validation_split <= 0 ):
+                pass
+            else:
+                val_acc = 0
+                x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=validation_split)
+
             samples = len(x_train)
             acc = 0
 
@@ -109,13 +120,25 @@ class Sequential:
                 # do prediction, cal
                 pred = self.predict(x_train)
                 acc = self.accuracy(y_train, pred)
-                self.val_accuracy_history.append(acc)
-                t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f' %
-                                  (i+1, epochs, err, acc))
+                self.accuracy_history.append(acc)
+                if (validation_split > 0):
+                    val_pred = self.predict(x_val)
+                    val_acc = self.accuracy(y_val, val_pred)
+                    self.val_accuracy_history.append(val_acc)
+                    val_out = self.predict(x_val)
+                    val_err = self.loss(y_val, val_out)
+                    self.val_loss_history.append(val_err)
+                    t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f    val_error=%.2f    val_acc=%.2f' % (i+1, epochs, err, acc, val_err, val_acc))
+                else:
+                    t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f' % (i+1, epochs, err, acc))
 
         if issubclass(type(optimizer), StochasticOptimizer):
-            acc = 0
+            if (validation_split <= 0 ):
+                pass
+            else:
+                x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=validation_split)
 
+            acc = 0
             # training loop
             for i in (t := trange(epochs)):
                 samp = np.random.randint(
@@ -130,8 +153,7 @@ class Sequential:
                         output = layer.forward_propagation(output)
 
                     err += self.loss(y_train[samp[j]], output)
-                    error = self.loss(
-                        y_train[samp[j]], output, derivative=True)
+                    error = self.loss(y_train[samp[j]], output, derivative=True)
                     for layer in reversed(self.layers):
                         error = layer.backward_propagation(error)
 
@@ -141,9 +163,17 @@ class Sequential:
                 self.train_loss_history.append(err)
                 pred = self.predict(x_train)
                 acc = self.accuracy(y_train, pred)
-                self.val_accuracy_history.append(acc)
-                t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f' %
-                                  (i+1, epochs, err, acc))
+                self.accuracy_history.append(acc)
+                if (validation_split > 0):
+                    val_pred = self.predict(x_val)
+                    val_acc = self.accuracy(y_val, val_pred)
+                    self.val_accuracy_history.append(val_acc)
+                    val_out = self.predict(x_val)
+                    val_err = self.loss(y_val, val_out)
+                    self.val_loss_history.append(val_err)
+                    t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f    val_error=%.2f    val_acc=%.2f' % (i+1, epochs, err, acc, val_err, val_acc))
+                else:
+                    t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f' % (i+1, epochs, err, acc))
 
     def accuracy(self, y, pred):
         """
@@ -154,6 +184,7 @@ class Sequential:
         :return: the accuracy of the predicted output.
         """
         # acc = np.sum(y_pred == y) / len(y)
+        #print(np.round(pred))
         acc = np.sum((np.round(pred) == y)) / len(y)
         # acc = accuracy_score(y, np.round(pred))
         return acc
