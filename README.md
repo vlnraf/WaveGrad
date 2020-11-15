@@ -34,3 +34,7 @@ net.fit(Xtrain, ytrain, epochs=500, optimizer=optim)
 See [`activations`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.activations) for the list of activation functions.
 See [`optimizers`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.optimizers) for the list of optimizers.
 See [`losses`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wavegrad.losses) for the list of losees functions.
+
+## TODO
+
+- implement the validation split from yourself without use the library sklearn
