@@ -1,7 +1,15 @@
+"""
+Utility Module
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 
 def plot_loss(net):
+    """
+    Plot the loss of the network during the train and it's validation
+
+    :param net: A network
+    """
     fig, loss = plt.subplots()
     plt.style.use('ggplot')
     loss.plot(net.train_loss_history, color='navy', lw=2)
@@ -13,6 +21,11 @@ def plot_loss(net):
     plt.show()
 
 def plot_accuracy(net):
+    """
+    Plot the accuracy of the network during the train and it's validation
+
+    :param net: A network
+    """
     fig, loss = plt.subplots()
     plt.style.use('ggplot')
     loss.plot(net.accuracy_history, color='navy', lw=2)

@@ -40,3 +40,10 @@ wavegrad.optimizers module
  :show-inheritance:
  :undoc-members:
 
+wavegrad.utility module
+------------------------------
+.. automodule:: wavegrad.utility
+ :members:
+ :show-inheritance:
+ :undoc-members:
+

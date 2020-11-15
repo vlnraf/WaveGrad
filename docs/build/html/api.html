@@ -89,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-wavegrad.activations">wavegrad.activations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-wavegrad.losses">wavegrad.losses module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-wavegrad.optimizers">wavegrad.optimizers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-wavegrad.utility">wavegrad.utility module</a></li>
 </ul>
 </li>
 </ul>
@@ -162,30 +163,12 @@
 The main class you need to care about is crawler.main.Crawler</p>
 <div class="section" id="module-wavegrad.network">
 <span id="wavegrad-network-module"></span><h2>wavegrad.network module<a class="headerlink" href="#module-wavegrad.network" title="Permalink to this headline">¶</a></h2>
-<p>Network Module</p>
 <dl class="py class">
 <dt id="wavegrad.network.Sequential">
 <em class="property">class </em><code class="sig-prename descclassname">wavegrad.network.</code><code class="sig-name descname">Sequential</code><a class="headerlink" href="#wavegrad.network.Sequential" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Sequential Object</p>
 <p>Create a Sequential Object that contain the <a class="reference internal" href="#wavegrad.layers.Layer" title="wavegrad.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a></p>
-<dl class="py method">
-<dt id="wavegrad.network.Sequential.accuracy">
-<code class="sig-name descname">accuracy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">pred</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.network.Sequential.accuracy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the accuracy of a given prediction</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>y</strong> – the predicted output.</p></li>
-<li><p><strong>pred</strong> – the target (binary) output.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the accuracy of the predicted output.</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt id="wavegrad.network.Sequential.add">
 <code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.network.Sequential.add" title="Permalink to this definition">¶</a></dt>
@@ -199,7 +182,7 @@ The main class you need to care about is crawler.main.Crawler</p>
 
 <dl class="py method">
 <dt id="wavegrad.network.Sequential.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_train</span></em>, <em class="sig-param"><span class="n">y_train</span></em>, <em class="sig-param"><span class="n">epochs</span></em>, <em class="sig-param"><span class="n">optimizer</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.network.Sequential.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_train</span></em>, <em class="sig-param"><span class="n">y_train</span></em>, <em class="sig-param"><span class="n">epochs</span></em>, <em class="sig-param"><span class="n">optimizer</span></em>, <em class="sig-param"><span class="n">validation_split</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.network.Sequential.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert the X_train y_train the optimizer to use and the epochs to fit the neural network with your datas, you can add the batch size if you need it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -479,6 +462,49 @@ squashes it to a real-valued output between 0 and 1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>lr</strong> – the learning rate to use</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-wavegrad.utility">
+<span id="wavegrad-utility-module"></span><h2>wavegrad.utility module<a class="headerlink" href="#module-wavegrad.utility" title="Permalink to this headline">¶</a></h2>
+<p>Utility Module</p>
+<dl class="py function">
+<dt id="wavegrad.utility.accuracy">
+<code class="sig-prename descclassname">wavegrad.utility.</code><code class="sig-name descname">accuracy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">pred</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.utility.accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the accuracy of a given prediction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> – the predicted output.</p></li>
+<li><p><strong>pred</strong> – the target (binary) output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the accuracy of the predicted output.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="wavegrad.utility.plot_accuracy">
+<code class="sig-prename descclassname">wavegrad.utility.</code><code class="sig-name descname">plot_accuracy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">net</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.utility.plot_accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the accuracy of the network during the train and it’s validation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>net</strong> – A network</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="wavegrad.utility.plot_loss">
+<code class="sig-prename descclassname">wavegrad.utility.</code><code class="sig-name descname">plot_loss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">net</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.utility.plot_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the loss of the network during the train and it’s validation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>net</strong> – A network</p>
 </dd>
 </dl>
 </dd></dl>
