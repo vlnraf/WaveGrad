@@ -60,8 +60,7 @@ class GD(DiscreteOptimizer):
         for i, object in enumerate(self.params):
             self.v_weights[i] = self.momentum * self.v_weights[i]
             self.v_bias[i] = self.momentum * self.v_bias[i]
-            object.weights_grad = -self.lr * \
-                object.weights_grad + self.v_weights[i]
+            object.weights_grad = -self.lr * object.weights_grad + self.v_weights[i]
             object.bias_grad = -self.lr * object.bias_grad + self.v_bias[i]
             object.weights = object.weights + object.weights_grad
             object.bias = object.bias + object.bias_grad
@@ -101,8 +100,7 @@ class SGD(StochasticOptimizer):
         for i, object in enumerate(self.params):
             self.v_weights[i] = self.momentum * self.v_weights[i]
             self.v_bias[i] = self.momentum * self.v_bias[i]
-            object.weights_grad = -self.lr * \
-                object.weights_grad + self.v_weights[i]
+            object.weights_grad = -self.lr * object.weights_grad + self.v_weights[i]
             object.bias_grad = -self.lr * object.bias_grad + self.v_bias[i]
             object.weights = object.weights + object.weights_grad
             object.bias = object.bias + object.bias_grad

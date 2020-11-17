@@ -48,7 +48,7 @@ def accuracy(y, pred):
     #print(np.round(pred))
     acc = 0
     for x in range(len(pred)):
-        acc += np.sum(np.array_equal(np.round(pred[x]), y[x])) / len(y)
+        acc += np.sum(np.array_equal(np.round(pred[x]), y[x]))
     # acc = np.sum(np.round(pred) == y) / len(y)
     # acc = accuracy_score(y, np.round(pred))
-    return acc
+    return acc / len(y)
