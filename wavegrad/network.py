@@ -128,6 +128,7 @@ class Sequential:
                     val_acc = accuracy(y_val, val_out)
                     self.val_accuracy_history.append(val_acc)
                     val_err = self.loss(y_val, val_out)
+                    val_err /= x_val.shape[0]
                     self.val_loss_history.append(val_err)
                     t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f    val_error=%.2f    val_acc=%.2f' % (i+1, epochs, err, acc, val_err, val_acc))
                 else:
@@ -170,6 +171,7 @@ class Sequential:
                     val_acc = accuracy(y_val, val_out)
                     self.val_accuracy_history.append(val_acc)
                     val_err = self.loss(y_val, val_out)
+                    val_err /= x_val.shape[0]
                     self.val_loss_history.append(val_err)
                     t.set_description('epoch %d/%d   error=%.2f    accuracy=%.2f    val_error=%.2f    val_acc=%.2f' % (i+1, epochs, err, acc, val_err, val_acc))
                 else:

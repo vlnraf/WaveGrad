@@ -14,7 +14,7 @@ def MSE(target, y, derivative=False):
     :return: the MSE or it's derivative.
     """
     if derivative == False:
-        return np.mean(np.square(target - y))
+        return 0.5 * np.sum(np.square(target - y))
     else:
         return 2*(y - target)/y.size
 
