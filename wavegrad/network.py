@@ -74,15 +74,20 @@ class Sequential:
         return result
 
     # train the network
-    def fit(self, x_train, y_train, epochs, optimizer, validation_split=0., batch_size=None):
+    def fit(self, x_train, y_train, epochs, optimizer, validation_split=0., regularizer=None, batch_size=32,):
         """
         Insert the X_train y_train the optimizer to use and the epochs to fit the neural network with your datas, you can add the batch size if you need it.
 
         :param x_train: the input data
         :param y_train: the target data
         :param epoch: the number of epochs to permorm the train
-        :param optimizer: the tipe of :py:class:`.Optimizer` to use.
+        :param optimizer: the type of :py:class:`.Optimizer` to use.
+        :param regularizer: the type of :py:class:`.Regularizer` to use.
         """
+
+        if regularizer != None:
+            self.regularizer = regularizer
+
         if issubclass(type(optimizer), DiscreteOptimizer):
             # sample dimension first
             if (validation_split <= 0 ):
@@ -107,16 +112,22 @@ class Sequential:
 
                     # compute loss (for display purpose only)
                     err += self.loss(y_train[j], output)
-
                     # backward propagation
                     error = self.loss(y_train[j], output, derivative=True)
+
                     for layer in reversed(self.layers):
                         error = layer.backward_propagation(error)
 
                     optimizer.step()
 
                 # calculate average error on all samples
-                err /= samples
+                if (regularizer != None):
+                    err += self.regularizer.call(self.layers)
+                    error += self.regularizer.gradient(self.layers)
+                    err /= samples
+                else:
+                    err /= samples
+
                 # append error to plot it later
                 self.train_loss_history.append(err)
                 # do prediction, cal
@@ -156,12 +167,19 @@ class Sequential:
 
                     err += self.loss(y_train[samp[j]], output)
                     error = self.loss(y_train[samp[j]], output, derivative=True)
+
                     for layer in reversed(self.layers):
                         error = layer.backward_propagation(error)
 
                     optimizer.step()
 
-                err /= samples
+                if (regularizer != None):
+                    err += self.regularizer.call(self.layers)
+                    error += self.regularizer.gradient(self.layers)
+                    err /= samples
+                else:
+                    err /= samples
+
                 self.train_loss_history.append(err)
                 pred = self.predict(x_train)
                 acc = accuracy(y_train, pred)
