@@ -90,6 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-wavegrad.losses">wavegrad.losses module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-wavegrad.optimizers">wavegrad.optimizers module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-wavegrad.utility">wavegrad.utility module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-wavegrad.regularizer">wavegrad.regularizer module</a></li>
 </ul>
 </li>
 </ul>
@@ -182,7 +183,7 @@ The main class you need to care about is crawler.main.Crawler</p>
 
 <dl class="py method">
 <dt id="wavegrad.network.Sequential.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_train</span></em>, <em class="sig-param"><span class="n">y_train</span></em>, <em class="sig-param"><span class="n">epochs</span></em>, <em class="sig-param"><span class="n">optimizer</span></em>, <em class="sig-param"><span class="n">validation_split</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.network.Sequential.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_train</span></em>, <em class="sig-param"><span class="n">y_train</span></em>, <em class="sig-param"><span class="n">epochs</span></em>, <em class="sig-param"><span class="n">optimizer</span></em>, <em class="sig-param"><span class="n">validation_split</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="o">=</span><span class="default_value">32</span></em>, <em class="sig-param"><span class="n">regularizer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.network.Sequential.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert the X_train y_train the optimizer to use and the epochs to fit the neural network with your datas, you can add the batch size if you need it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -190,7 +191,8 @@ The main class you need to care about is crawler.main.Crawler</p>
 <li><p><strong>x_train</strong> – the input data</p></li>
 <li><p><strong>y_train</strong> – the target data</p></li>
 <li><p><strong>epoch</strong> – the number of epochs to permorm the train</p></li>
-<li><p><strong>optimizer</strong> – the tipe of <a class="reference internal" href="#wavegrad.optimizers.Optimizer" title="wavegrad.optimizers.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> to use.</p></li>
+<li><p><strong>optimizer</strong> – the type of <a class="reference internal" href="#wavegrad.optimizers.Optimizer" title="wavegrad.optimizers.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> to use.</p></li>
+<li><p><strong>regularizer</strong> – the type of <a class="reference internal" href="#wavegrad.regularizer.Regularizer" title="wavegrad.regularizer.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a> to use.</p></li>
 </ul>
 </dd>
 </dl>
@@ -507,6 +509,59 @@ squashes it to a real-valued output between 0 and 1.</p>
 <dd class="field-odd"><p><strong>net</strong> – A network</p>
 </dd>
 </dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-wavegrad.regularizer">
+<span id="wavegrad-regularizer-module"></span><h2>wavegrad.regularizer module<a class="headerlink" href="#module-wavegrad.regularizer" title="Permalink to this headline">¶</a></h2>
+<p>Regularizer Moduel</p>
+<dl class="py class">
+<dt id="wavegrad.regularizer.L2">
+<em class="property">class </em><code class="sig-prename descclassname">wavegrad.regularizer.</code><code class="sig-name descname">L2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">l2</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.regularizer.L2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#wavegrad.regularizer.Regularizer" title="wavegrad.regularizer.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">wavegrad.regularizer.Regularizer</span></code></a></p>
+<p>Initizalize the lamda component that will penalize weights</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params l2</dt>
+<dd class="field-odd"><p>the regularization parameter</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="wavegrad.regularizer.L2.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.regularizer.L2.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the weights decay.
+:params layers: the layers of the neural network</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wavegrad.regularizer.L2.gradient">
+<code class="sig-name descname">gradient</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.regularizer.L2.gradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the weights decay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params layers</dt>
+<dd class="field-odd"><p>the layers of the neural network</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wavegrad.regularizer.Regularizer">
+<em class="property">class </em><code class="sig-prename descclassname">wavegrad.regularizer.</code><code class="sig-name descname">Regularizer</code><a class="headerlink" href="#wavegrad.regularizer.Regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Abstract base class for the Regularizer.</p>
+<dl class="py method">
+<dt id="wavegrad.regularizer.Regularizer.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.regularizer.Regularizer.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write it!!!!!!!!</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wavegrad.regularizer.Regularizer.gradient">
+<code class="sig-name descname">gradient</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wavegrad.regularizer.Regularizer.gradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write it!!!!!!!!</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

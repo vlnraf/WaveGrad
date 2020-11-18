@@ -47,3 +47,9 @@ wavegrad.utility module
  :show-inheritance:
  :undoc-members:
 
+wavegrad.regularizer module
+------------------------------
+.. automodule:: wavegrad.regularizer
+ :members:
+ :show-inheritance:
+ :undoc-members:
