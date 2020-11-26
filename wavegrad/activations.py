@@ -20,13 +20,6 @@ def relu(x, derivative=False):
         x[x > 0] = 1
         return x
 
-
-# def relu_prime(x):
-    #x[x<=0] = 0
-    #x[x>0] = 1
-    # return x
-
-
 def tanh(x, derivative=False):
     """
     The Tanh activation function is computed on each element of the input array.
