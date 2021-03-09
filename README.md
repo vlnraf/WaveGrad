@@ -38,3 +38,4 @@ See [`losses`](https://vlnraf.github.io/WaveGrad/build/html/api.html#module-wave
 ## TODO
 
 - implement the validation split from yourself without use the library sklearn
+- Refactor the optimizator
